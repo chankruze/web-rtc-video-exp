@@ -11,8 +11,9 @@ const socket = io("/");
 const videoGrid = document.getElementById("video_grid");
 // local server
 const myPeer = new Peer(undefined, {
-  host: "/",
-  port: "9000",
+  secure: true,
+  host: "gconf0.herokuapp.com",
+  path: "/peer_server",
 });
 
 // remote peer server

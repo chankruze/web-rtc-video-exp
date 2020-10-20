@@ -5,21 +5,27 @@ Created: Tue Oct 20 2020 19:11:25 GMT+0530 (India Standard Time)
 Copyright (c) Geekofia 2020 and beyond
 */
 
-require("dotenv").config();
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
+
 const express = require("express"),
   { PeerServer } = require("peer"),
   os = require("os"),
   { v4: uuidV4 } = require("uuid"),
   cors = require("cors");
 
-// PORT
-const PORT = process.env.PORT;
-const PEER_PORT = process.env.PEER_PORT;
-
 // create http server
 const app = express();
 // peer server
-PeerServer({ port: `${PEER_PORT}` });
+if (process.env.NODE_ENV === "production") {
+  PeerServer({
+    port: `${process.env.PEER_PORT}`,
+    host: "gconf0.herokuapp.com",
+    secure: true,
+    path: "/peer_server"
+  });
+}
 // use CORS
 app.use(cors());
 
@@ -41,9 +47,9 @@ app.get("/:room", (req, res) => {
 const networkInterfaces = os.networkInterfaces();
 let SERV_URL = networkInterfaces.eth0[0].address;
 
-const server = app.listen(PORT, () =>
+const server = app.listen(process.env.PORT, () =>
   console.log(
-    `Server on network: http://${SERV_URL}:${PORT}\nServer on local: http://localhost:${PORT}`
+    `Server on network: http://${SERV_URL}:${process.env.PORT}\nServer on local: http://localhost:${process.env.PORT}`
   )
 );
 
