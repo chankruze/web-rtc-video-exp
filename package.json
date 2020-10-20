@@ -1,0 +1,23 @@
+{
+  "name": "web-rtc-video-exp",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:chankruze/web-rtc-video-exp.git",
+  "author": "chankruze <chankruze@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "peer": "^0.5.3",
+    "socket.io": "^2.3.0",
+    "uuid": "^8.3.1"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0",
+    "nodemon": "^2.0.6"
+  },
+  "scripts": {
+    "dev": "nodemon server.js"
+  }
+}

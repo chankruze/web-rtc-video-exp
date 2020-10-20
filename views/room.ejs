@@ -1,0 +1,54 @@
+<!--
+Author: chankruze (chankruze@geekofia.in)
+Created: Tue Oct 20 2020 19:36:33 GMT+0530 (India Standard Time)
+
+Copyright (c) Geekofia 2020 and beyond
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script>
+        const ROOM_ID = "<%= roomId %>"
+    </script>
+
+
+    <title>Document</title>
+
+    <style>
+        body {
+            background-color: black;
+        }
+
+        #video_grid {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        video {
+            width: 300px;
+            height: 300px;
+            object-fit: cover;
+            border: 1px solid blue;
+            margin: 0.5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <h1 id="user"></h1> -->
+    <div id="video_grid"></div>
+
+    <!-- Scripts -->
+    <script src="/socket.io/socket.io.js" defer></script>
+    <script src="peerjs.min.js"></script>
+    <script src="script.js" defer></script>
+</body>
+
+</html>
