@@ -13,7 +13,7 @@ const videoGrid = document.getElementById("video_grid");
 const myPeer = new Peer(undefined, {
   secure: true,
   host: "gconf0.herokuapp.com",
-  path: "/peer_server",
+  path: "/peer_server/server",
 });
 
 // remote peer server
