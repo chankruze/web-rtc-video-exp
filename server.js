@@ -10,22 +10,12 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 const express = require("express"),
-  { PeerServer, ExpressPeerServer } = require("peer"),
   os = require("os"),
   { v4: uuidV4 } = require("uuid"),
   cors = require("cors");
 
 // create http server
 const app = express();
-// peer server
-// if (process.env.NODE_ENV === "production") {
-//   PeerServer({
-//     port: `${process.env.PEER_PORT}`,
-//     host: "gconf0.herokuapp.com",
-//     secure: true,
-//     path: "/peer_server",
-//   });
-// }
 // use CORS
 app.use(cors());
 
@@ -51,15 +41,6 @@ const server = app.listen(process.env.PORT, () =>
   console.log(
     `Server on network: http://${SERV_URL}:${process.env.PORT}\nServer on local: http://localhost:${process.env.PORT}`
   )
-);
-
-app.use(
-  "/peer_server",
-  ExpressPeerServer({
-    path: "/server",
-    secure: true,
-    host: "/",
-  })
 );
 
 // socket IO
