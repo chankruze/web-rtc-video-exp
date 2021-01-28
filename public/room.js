@@ -7,8 +7,36 @@ Copyright (c) Geekofia 2020 and beyond
 
 // init socket.io
 const socket = io("/");
+
+/* Navigator User Media */
+const videoConstrants = {
+  aspectRatio: 1.7777777778,
+};
+
+const audioConstrants = {
+  echoCancellation: true,
+  noiseSuppression: true,
+  sampleRate: 44100,
+};
+
+// const gdmOptionsMin = {
+//   video: true,
+//   audio: true,
+// };
+
+// const gdmOptionsFull = {
+//   video: {
+//     cursor: "always",
+//   },
+//   audio: {
+//     echoCancellation: true,
+//     noiseSuppression: true,
+//     sampleRate: 44100,
+//   },
+// };
+
 // find reference to video grid
-const videoGrid = document.getElementById("video_grid");
+// const videoGrid = document.getElementById("video_grid");
 // local server
 const myPeer = new Peer(undefined, {
   host: "peerserver69.herokuapp.com",
@@ -18,18 +46,24 @@ const myPeer = new Peer(undefined, {
 // remote peer server
 // const myPeer = new Peer();
 
+// create a new video wrapper
+// const thisVideoWrapper = document.createElement("div");
+// thisVideoWrapper.className = "video_wrapper";
 // create a new video element
-const thisVideo = document.createElement("video");
+// const thisVideo = document.createElement("video");
+const thisVideo = document.getElementById("half_video");
 // mute each user itself
 thisVideo.muted = true;
+// append video to video wrapper
+// thisVideoWrapper.append(thisVideo);
 // other peers call for indivisual peer
 connectedPeers = {};
 
 // camera, mic
 navigator.mediaDevices
   .getUserMedia({
-    video: true,
-    audio: true,
+    audio: audioConstrants,
+    video: videoConstrants,
   })
   .then((stream) => {
     // add video stream to video and render video to grid
@@ -39,8 +73,13 @@ navigator.mediaDevices
     myPeer.on("call", (call) => {
       // answer the call
       call.answer(stream);
+      // creaet new video wrapper
+      // const videoWrapper = document.createElement("div");
+      // videoWrapper.className = "video_wrapper";
       // create new video elem
-      const video = document.createElement("video");
+      const video = document.getElementById("full_video");
+      // append video to video wrapper
+      // videoWrapper.append(video);
       // add new user stream to grid
       call.on("stream", (userVideoStream) => {
         addVideoStream(video, userVideoStream);
@@ -70,7 +109,13 @@ myPeer.on("open", (id) => {
 const connectToNewUser = (userId, stream) => {
   // call new peer
   const call = myPeer.call(userId, stream);
-  const video = document.createElement("video");
+  // creaet new video wrapper
+  // const videoWrapper = document.createElement("div");
+  // videoWrapper.className = "video_wrapper";
+  // create new video elem
+  const video = document.getElementById("full_video");
+  // append video to video wrapper
+  // videoWrapper.append(video);
   // when stream is received add that stream to video elem
   call.on("stream", (userVideoStream) => {
     addVideoStream(video, userVideoStream);
@@ -78,6 +123,7 @@ const connectToNewUser = (userId, stream) => {
   // remove video element
   call.on("close", () => {
     video.remove();
+    // videoWrapper.remove();
   });
   // store that call to connected peers list (key = userId, value = call)
   connectedPeers[userId] = call;
@@ -91,6 +137,6 @@ const addVideoStream = (video, stream) => {
   video.addEventListener("loadedmetadata", () => {
     video.play();
   });
-  // append new video to grid
-  videoGrid.append(video);
+  // // append new video to grid
+  // videoGrid.append(videoWrapper);
 };

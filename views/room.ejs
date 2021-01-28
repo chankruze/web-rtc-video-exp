@@ -1,54 +1,133 @@
-<!--
-Author: chankruze (chankruze@geekofia.in)
-Created: Tue Oct 20 2020 19:36:33 GMT+0530 (India Standard Time)
-
-Copyright (c) Geekofia 2020 and beyond
--->
-
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 
     <script>
         const ROOM_ID = "<%= roomId %>"
     </script>
 
 
-    <title>Document</title>
+    <title>DirtyCall</title>
 
     <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            background-color: black;
-        }
-
-        #video_grid {
+            background-color: #252525;
             display: flex;
-            flex-direction: row;
-            justify-content: center;
-            flex-wrap: wrap;
+            /* flex-wrap: wrap; */
+            height: 100vh;
+            width: 100vw;
         }
 
-        video {
-            width: 300px;
-            height: 300px;
+        #half_video_wrapper {
+            justify-self: flex-start;
+            width: 194px;
+            height: 110px;
+            padding: 0.25rem;
+            border-radius: 0.25rem;
+            /* background: yellow; */
+        }
+
+        #half_video_wrapper #half_video {
+            width: 100%;
+            height: 100%;
             object-fit: cover;
-            border: 1px solid blue;
-            margin: 0.5rem;
+            border-radius: 0.25rem;
+        }
+
+        #full_video_wrapper {
+            flex: 1;
+            /* background: #353535; */
+            padding: 0.25rem;
+            /* border: 1px solid blue; */
+            /* margin: 0 0 0.25rem 0; */
+        }
+
+        #full_video_wrapper #full_video {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            /* display: none; */
+        }
+
+        #button_wrapper_div {
+            display: flex;
+            padding: 1rem;
+        }
+
+        .button_wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            margin: 0.25rem;
+            padding: 0.5rem;
+            color: #ffffff;
+            /* background: #353535; */
+            background: #007400;
+            border-radius: 0.5rem;
+        }
+
+        .button_wrapper.active {
+            background: #ff0000;
+        }
+
+        .button_wrapper p {
+            text-transform: uppercase;
+            font-size: 0.8rem;
+        }
+
+        .button_wrapper i {
+            font-size: 2rem;
+            color: #ffffff;
+        }
+
+        #left_panel {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            /* background: cadetblue; */
+            align-items: center;
         }
     </style>
 </head>
 
 <body>
-    <!-- <h1 id="user"></h1> -->
-    <div id="video_grid"></div>
+    <div id="left_panel">
+        <div id="half_video_wrapper">
+            <video id="half_video"></video>
+        </div>
+        <div id="button_wrapper_div">
+            <div class="button_wrapper">
+                <i class="bi bi-camera"></i>
+                <!-- <p>Mute</p> -->
+            </div>
+            <div class="button_wrapper">
+                <i class="bi bi-mic-mute"></i>
+                <!-- <p>Mute</p> -->
+            </div>
+            <div class="button_wrapper">
+                <i class="bi bi-camera-video-off"></i>
+                <!-- <p>Stop</p> -->
+            </div>
+        </div>
+    </div>
+    <div id="full_video_wrapper">
+        <video id="full_video"></video>
+    </div>
+
 
     <!-- Scripts -->
     <script src="/socket.io/socket.io.js" defer></script>
-    <script src="peerjs.min.js"></script>
-    <script src="script.js" defer></script>
+    <script src="/peerjs.min.js"></script>
+    <script src="/room.js" defer></script>
 </body>
 
 </html>
